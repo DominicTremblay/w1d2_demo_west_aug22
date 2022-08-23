@@ -12,35 +12,43 @@ if (args.length < 2) {
   process.exit();
 }
 
-// define an accumulator => keeping track of the sum
-let total = 0;
+// Single responsibility principle
+// a function should do a single thing
 
-// iterate through the command-line arguments
-// c-style loop => (let i=0; i < args.length; i++) {} => less readable
-// forEach loop => forEach((el,index) => {}) => index, break, continue do not work
-// for of loop => for (let nb of args) {} => no index
+const sum = function (numbers) {
+  // define an accumulator => keeping track of the sum
+  let total = 0;
 
-for (let nb of args) {
-  // typecasting a value => convert the string into a number
-  const convertedNumber = Number(nb);
-  // Edge case: check if args is a number
-  // Edge case:  if it's not an number throw an error
+  // iterate through the command-line arguments
+  // c-style loop => (let i=0; i < args.length; i++) {} => less readable
+  // forEach loop => forEach((el,index) => {}) => index, break, continue do not work
+  // for of loop => for (let nb of args) {} => no index
 
-  if (isNaN(convertedNumber)) {
-    console.log('Error, please enter only numbers');
-    process.exit();
+  for (let nb of numbers) {
+    // typecasting a value => convert the string into a number
+    const convertedNumber = Number(nb);
+    // Edge case: check if args is a number
+    // Edge case:  if it's not an number throw an error
+
+    if (isNaN(convertedNumber)) {
+      console.log('Error, please enter only numbers');
+      process.exit();
+    }
+    // Edge case: check if the number is a whole number
+    // modulo %
+    //
+
+    if (Number.isInteger(convertedNumber)) {
+      total += convertedNumber;
+    }
+
+    console.log('nb', nb, 'total:', total, 'type:', typeof convertedNumber);
   }
-  // Edge case: check if the number is a whole number
-  // modulo %
-  //
 
-  if (Number.isInteger(convertedNumber)) {
-    total += convertedNumber;
-  }
+  // print out the sum
 
-  console.log('nb', nb, 'total:', total, 'type:', typeof convertedNumber);
-}
+  return total;
+};
 
-// print out the sum
-
-console.log('Total:', total);
+const result = sum(args);
+console.log("result:", result)
