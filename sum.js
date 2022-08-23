@@ -1,12 +1,16 @@
 // - Write a node program that takes in an unlimited number of command line arguments, goes through each and prints out the sum of them. If any argument is not a whole number, skip it. Do support negative numbers though. If any argument is not a number, output an error message. We need at least 2 arguments.
 
-
 // get command-line arguments => process.argv
 const args = process.argv.slice(2);
-console.log("args:", args);
+console.log('args:', args);
 
 // Edge case: check if there are at least 2 command-line arguments
-
+if (args.length < 2) {
+  console.log('Please enter at least 2 arguments');
+  // stop the execution
+  // return;
+  process.exit();
+}
 
 // define an accumulator => keeping track of the sum
 let total = 0;
@@ -18,16 +22,25 @@ let total = 0;
 
 for (let nb of args) {
   // typecasting a value => convert the string into a number
-  total += Number(nb);
-  console.log("nb", nb, "total:", total, "type:", typeof nb);
+  const convertedNumber = Number(nb);
+  // Edge case: check if args is a number
+  // Edge case:  if it's not an number throw an error
+
+  if (isNaN(convertedNumber)) {
+    console.log('Error, please enter only numbers');
+    process.exit();
+  }
+  // Edge case: check if the number is a whole number
+  // modulo %
+  //
+
+  if (Number.isInteger(convertedNumber)) {
+    total += convertedNumber;
+  }
+
+  console.log('nb', nb, 'total:', total, 'type:', typeof convertedNumber);
 }
-
-
-// Edge case: check if args is a number
-// Edge case:  if it's not an number throw an error
-
-// Edge case: check if the number is a whole number
 
 // print out the sum
 
-console.log("Total:", total)
+console.log('Total:', total);
